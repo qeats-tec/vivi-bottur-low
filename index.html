@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>vivi</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#ff00ff;
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+}
+
+.yazi{
+    position:absolute;
+    font-weight:bold;
+    white-space:nowrap;
+    animation:ak linear forwards;
+}
+
+@keyframes ak{
+    from{
+        transform:translateY(-10vh);
+        opacity:1;
+    }
+    to{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+<source src="sarki.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const kelimeler = [
+"vivi",
+"vivi bottur low",
+"enes batur",
+"enes api",
+"vivi 8 cm",
+"ayak sallayan dolunay",
+"vivi npc",
+"vivi bot detected",
+"vivi küçük",
+"enes api çalışıyor",
+"vivi low skill",
+"vivi ping 999",
+"vivi internet cafe",
+"vivi sistem",
+"vivi online"
+]
+
+function yaziOlustur(){
+
+    const yazi = document.createElement("div")
+    yazi.className = "yazi"
+
+    yazi.innerText = kelimeler[Math.floor(Math.random()*kelimeler.length)]
+
+    yazi.style.left = Math.random()*100+"vw"
+    yazi.style.fontSize = (Math.random()*25+15)+"px"
+    yazi.style.animationDuration = (Math.random()*6+4)+"s"
+
+    document.body.appendChild(yazi)
+
+    setTimeout(()=>{
+        yazi.remove()
+    },10000)
+}
+
+setInterval(yaziOlustur,120)
+
+</script>
+
+</body>
+</html>
