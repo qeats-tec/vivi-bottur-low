@@ -1,84 +1,172 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<title>vivi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vivi bottur low</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            overflow: hidden;
+            font-family: 'Arial Black', sans-serif;
+        }
 
-<style>
-body{
-    margin:0;
-    background:black;
-    color:#ff00ff;
-    font-family:Arial, sans-serif;
-    overflow:hidden;
-}
+        #giris {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #ff00ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
 
-.yazi{
-    position:absolute;
-    font-weight:bold;
-    white-space:nowrap;
-    animation:ak linear forwards;
-}
+        #giris h1 {
+            font-size: 3.5rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
 
-@keyframes ak{
-    from{
-        transform:translateY(-10vh);
-        opacity:1;
-    }
-    to{
-        transform:translateY(110vh);
-        opacity:0;
-    }
-}
-</style>
+        #giris p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        #giris button {
+            background: white;
+            color: #ff00ff;
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 10px 0 #d100d1;
+            transition: 0.1s;
+        }
+
+        #giris button:active {
+            transform: translateY(5px);
+            box-shadow: 0 5px 0 #d100d1;
+        }
+
+        .hafif-sarsinti {
+            animation: titret 0.3s infinite;
+        }
+
+        @keyframes titret {
+            0% { transform: translate(1px, 1px); }
+            50% { transform: translate(-1px, -1px); }
+            100% { transform: translate(1px, -1px); }
+        }
+
+        .yazi {
+            position: fixed;
+            font-weight: 900;
+            white-space: nowrap;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
 </head>
-
 <body>
 
-<audio autoplay loop>
-<source src="sarki.mp3" type="audio/mpeg">
+<div id="giris">
+    <h1>ayak söyleyen dolunay cümlenin öznesi</h1>
+    <p>ayak söyleyen dolunay , enes sallıyor.</p>
+    <button onclick="baslat()">vivi uyan</button>
+</div>
+
+<audio id="music" loop>
+    <source src="sarki.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-
 const kelimeler = [
-"vivi",
-"vivi bottur low",
-"enes batur",
-"enes api",
-"vivi 8 cm",
-"ayak sallayan dolunay",
-"vivi npc",
-"vivi bot detected",
-"vivi küçük",
-"enes api çalışıyor",
-"vivi low skill",
-"vivi ping 999",
-"vivi internet cafe",
-"vivi sistem",
-"vivi online"
-]
+    "vivi 8 cm",
+    "enes batur",
+    "vivi bottur low",
+    "enes api aktif",
+    "vivi npc",
+    "8 cm vivi",
+    "enes batur abim",
+    "vivi küçük",
+    "vivi 8 cm error",
+    "vivi ping 999",
+    "enes batur vs vivi",
+    "vivi bot detected",
+    "vivi 8 cm onaylandı",
+    "vivi enes batur hayranı"
+];
 
-function yaziOlustur(){
+const renkler = ["#ff00ff", "#00ffff", "#ff8800", "#ff0000", "#000000", "#4400ff"];
 
-    const yazi = document.createElement("div")
-    yazi.className = "yazi"
+function baslat() {
+    document.getElementById("giris").style.display = "none";
+    document.body.classList.add("hafif-sarsinti");
 
-    yazi.innerText = kelimeler[Math.floor(Math.random()*kelimeler.length)]
+    const music = document.getElementById("music");
+    
+    // Müzik 15. saniyeden başlasın
+    music.currentTime = 15; 
+    music.play().catch(e => console.log("Müzik başlatılamadı, etkileşim gerekiyor."));
 
-    yazi.style.left = Math.random()*100+"vw"
-    yazi.style.fontSize = (Math.random()*25+15)+"px"
-    yazi.style.animationDuration = (Math.random()*6+4)+"s"
-
-    document.body.appendChild(yazi)
-
-    setTimeout(()=>{
-        yazi.remove()
-    },10000)
+    setInterval(yaziOlustur, 80); 
 }
 
-setInterval(yaziOlustur,120)
+function yaziOlustur() {
+    const yazi = document.createElement("div");
+    yazi.className = "yazi";
+    yazi.innerText = kelimeler[Math.floor(Math.random() * kelimeler.length)];
+    
+    const x = Math.random() * 90;
+    const y = Math.random() * 90;
+    
+    yazi.style.left = x + "vw";
+    yazi.style.top = y + "vh";
+    yazi.style.color = renkler[Math.floor(Math.random() * renkler.length)];
+    yazi.style.fontSize = (Math.random() * 40 + 20) + "px";
+    
+    const moveX = (Math.random() - 0.5) * 400;
+    const moveY = (Math.random() - 0.5) * 400;
+    
+    const anim = yazi.animate([
+        { transform: 'scale(0.2)', opacity: 0 },
+        { transform: `translate(${moveX/2}px, ${moveY/2}px) scale(1.2)`, opacity: 1, offset: 0.5 },
+        { transform: `translate(${moveX}px, ${moveY}px) scale(1)`, opacity: 0 }
+    ], {
+        duration: 2500,
+        easing: 'ease-out'
+    });
 
+    document.body.appendChild(yazi);
+    anim.onfinish = () => yazi.remove();
+}
+
+document.addEventListener('mousemove', (e) => {
+    if(document.getElementById("giris").style.display === "none") {
+        const iz = document.createElement("div");
+        iz.innerText = "8cm";
+        iz.style.position = "fixed";
+        iz.style.left = e.clientX + "px";
+        iz.style.top = e.clientY + "px";
+        iz.style.color = "#ff00ff";
+        iz.style.fontSize = "14px";
+        iz.style.pointerEvents = "none";
+        document.body.appendChild(iz);
+        setTimeout(() => iz.remove(), 400);
+    }
+});
 </script>
 
 </body>
